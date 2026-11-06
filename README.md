@@ -1,5 +1,6 @@
 # NobleAgent
 
+[![npm](https://img.shields.io/npm/v/noble-agent.svg)](https://www.npmjs.com/package/noble-agent)
 [![CI](https://github.com/davolu/NobleAgent/actions/workflows/ci.yml/badge.svg)](https://github.com/davolu/NobleAgent/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -36,7 +37,7 @@ That's the whole bot. Everything else — model selection, memory, budgets, safe
 ## Install
 
 ```bash
-pnpm add noble-agent        # umbrella package: everything wired
+npm install noble-agent     # or pnpm add / yarn add — one package, everything wired
 export ANTHROPIC_API_KEY=…  # or OPENAI_API_KEY — "auto" picks a model from env
 ```
 
