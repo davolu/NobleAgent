@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.noble/
+*.log
+.DS_Store
+coverage/
+noble.lock
+promptfooconfig.yaml

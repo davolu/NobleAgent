@@ -1,0 +1,39 @@
+{
+  "name": "@noble-agent/memory",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --sourcemap"
+  },
+  "dependencies": {
+    "@noble-agent/core": "workspace:*",
+    "better-sqlite3": "^11.5.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11"
+  },
+  "peerDependencies": {
+    "pg": ">=8"
+  },
+  "peerDependenciesMeta": {
+    "pg": {
+      "optional": true
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davolu/NobleAgent.git"
+  }
+}

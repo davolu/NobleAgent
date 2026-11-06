@@ -1,0 +1,43 @@
+{
+  "name": "@noble-agent/observe",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --sourcemap"
+  },
+  "dependencies": {
+    "@noble-agent/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "@opentelemetry/api": ">=1.8",
+    "langfuse": ">=3",
+    "langsmith": ">=0.1"
+  },
+  "peerDependenciesMeta": {
+    "@opentelemetry/api": {
+      "optional": true
+    },
+    "langfuse": {
+      "optional": true
+    },
+    "langsmith": {
+      "optional": true
+    }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davolu/NobleAgent.git"
+  }
+}

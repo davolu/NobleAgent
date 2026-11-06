@@ -1,0 +1,19 @@
+{
+  "name": "example-support-bot",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "make-pdfs": "node scripts/make-sample-pdfs.mjs",
+    "start": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "noble-agent": "workspace:*",
+    "express": "^4.21.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "tsx": "^4.19.0"
+  }
+}

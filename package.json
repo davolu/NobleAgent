@@ -1,0 +1,32 @@
+{
+  "name": "noble-agent-monorepo",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.34.4",
+  "scripts": {
+    "build": "pnpm -r --filter './packages/*' build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false || tsc --noEmit -p tsconfig.json",
+    "lint": "eslint packages examples --ext .ts",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "eslint": "^9.14.0",
+    "@eslint/js": "^9.14.0",
+    "typescript-eslint": "^8.14.0",
+    "prettier": "^3.3.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davolu/NobleAgent.git"
+  }
+}

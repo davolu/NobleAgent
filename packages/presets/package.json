@@ -1,0 +1,28 @@
+{
+  "name": "@noble-agent/presets",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --sourcemap"
+  },
+  "dependencies": {
+    "@noble-agent/core": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davolu/NobleAgent.git"
+  }
+}

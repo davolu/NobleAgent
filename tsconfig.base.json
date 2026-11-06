@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "sourceMap": true,
+    "isolatedModules": true,
+    "paths": {
+      "@noble-agent/core": ["./packages/core/src/index.ts"],
+      "@noble-agent/providers": ["./packages/providers/src/index.ts"],
+      "@noble-agent/memory": ["./packages/memory/src/index.ts"],
+      "@noble-agent/rag": ["./packages/rag/src/index.ts"],
+      "@noble-agent/strategies": ["./packages/strategies/src/index.ts"],
+      "@noble-agent/decide": ["./packages/decide/src/index.ts"],
+      "@noble-agent/observe": ["./packages/observe/src/index.ts"],
+      "@noble-agent/eval": ["./packages/eval/src/index.ts"],
+      "@noble-agent/workflow": ["./packages/workflow/src/index.ts"],
+      "@noble-agent/mcp": ["./packages/mcp/src/index.ts"],
+      "@noble-agent/presets": ["./packages/presets/src/index.ts"],
+      "noble-agent": ["./packages/noble-agent/src/index.ts"]
+    }
+  }
+}
