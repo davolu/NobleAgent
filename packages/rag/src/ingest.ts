@@ -1,10 +1,8 @@
 import { createHash } from "node:crypto";
-import { createRequire } from "node:module";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { basename, extname, join, relative } from "node:path";
 import type { Chunk, Embedder } from "./types.js";
 
-const require = createRequire(import.meta.url);
 const quiet = () => process.env.NOBLE_QUIET === "1";
 
 export interface IngestOptions {
@@ -148,20 +146,23 @@ async function loadFile(file: string, opts: IngestOptions): Promise<{ page?: num
 }
 
 async function loadPdf(file: string, opts: IngestOptions): Promise<{ page?: number; text: string }[]> {
-  // pdf-parse is CJS; the lib entry avoids its index.js self-test.
-  const pdfParse = require("pdf-parse/lib/pdf-parse.js") as (
-    buf: Buffer,
-    opts?: Record<string, unknown>
-  ) => Promise<{ text: string }>;
+  const { getDocument } = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const doc = await getDocument({
+    data: new Uint8Array(readFileSync(file)),
+    isEvalSupported: false, // no eval'd PostScript functions
+    useSystemFonts: true,
+  }).promise;
   const pages: string[] = [];
-  await pdfParse(readFileSync(file), {
-    pagerender: async (pageData: any) => {
-      const tc = await pageData.getTextContent();
-      const text = tc.items.map((it: any) => it.str).join(" ");
-      pages.push(text);
-      return text;
-    },
-  });
+  try {
+    for (let p = 1; p <= doc.numPages; p++) {
+      const page = await doc.getPage(p);
+      const tc = await page.getTextContent();
+      pages.push(tc.items.map((it: any) => ("str" in it ? it.str : "")).join(" "));
+      page.cleanup();
+    }
+  } finally {
+    await doc.destroy();
+  }
   const totalText = pages.join("").trim();
   if (totalText.length < 20 && opts.ocr !== false) {
     const ocrText = await tryOcr(file);
