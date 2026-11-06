@@ -5,6 +5,8 @@
 
 NobleAgent is an open-source TypeScript framework for chat agents that are safe to put in front of customers. Compose a bot in a few chained lines and get cited RAG, durable memory, hard cost budgets, and human-in-the-loop approvals out of the box — **short chains, smart defaults, full control when needed.**
 
+**📚 Docs: [davolu.github.io/NobleAgent](https://davolu.github.io/NobleAgent/)**
+
 ```ts
 import { noble } from "noble-agent";
 

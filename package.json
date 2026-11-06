@@ -12,16 +12,20 @@
     "test:watch": "vitest",
     "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false || tsc --noEmit -p tsconfig.json",
     "lint": "eslint packages examples --ext .ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
+    "@eslint/js": "^9.14.0",
     "@types/node": "^20.14.0",
     "eslint": "^9.14.0",
-    "@eslint/js": "^9.14.0",
-    "typescript-eslint": "^8.14.0",
     "prettier": "^3.3.0",
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
+    "typescript-eslint": "^8.14.0",
+    "vitepress": "^1.6.4",
     "vitest": "^2.1.0"
   },
   "license": "MIT",

@@ -7,3 +7,5 @@ dist/
 coverage/
 noble.lock
 promptfooconfig.yaml
+docs/.vitepress/dist/
+docs/.vitepress/cache/
