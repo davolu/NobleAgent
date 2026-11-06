@@ -112,6 +112,26 @@ describe("Phase 1 — core loop", () => {
     expect(trimmed.map((m) => m.content)).toEqual(["sys", "q2", "a2"]);
   });
 
+  it("falls back to the fallback model when the primary adapter throws", async () => {
+    const { registerProviderFactory } = await import("@noble-agent/core");
+    registerProviderFactory((id) => new MockModelAdapter([{ text: `answered by ${id}` }], { id }));
+    const failing = {
+      id: "primary-model",
+      price: { inPerMTok: 3, outPerMTok: 15 },
+      complete: async () => {
+        throw new Error("rate limited");
+      },
+      // eslint-disable-next-line require-yield
+      stream: async function* () {
+        throw new Error("rate limited");
+      },
+    };
+    const bot = new NobleAgent().model(failing, { fallback: "backup-model" }).memory([]);
+    const r = await bot.ask("hello", { sessionId: "s" });
+    expect(r.outcome).toBe("resolved");
+    expect(r.message).toBe("answered by backup-model");
+  });
+
   it("stream() yields tokens then done with a result", async () => {
     const mock = new MockModelAdapter([{ text: "Hello there friend" }]);
     const bot = new NobleAgent().model(mock).memory([]);

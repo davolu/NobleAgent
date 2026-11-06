@@ -274,6 +274,14 @@ export class NobleAgent {
       this.adapter = reg.providerFactory(this.resolveModelId(modelCfg));
     }
 
+    // Fallback model: used when the primary adapter throws on complete().
+    const fallbackId = this.val<ModelOptions>("modelOpts", {})?.fallback;
+    if (fallbackId && reg.providerFactory) {
+      this.adapter = withFallback(this.adapter, reg.providerFactory(fallbackId));
+    } else if (fallbackId) {
+      this.warnings.push(`model fallback "${fallbackId}" ignored: no provider factory registered.`);
+    }
+
     // MCP client tools.
     const mcpClient = this.cfg.get("mcpClient")?.value as
       | { listTools(): Promise<{ name: string; description?: string; inputSchema?: Record<string, unknown> }[]>; callTool(name: string, args: unknown): Promise<unknown> }
@@ -1029,6 +1037,31 @@ export class NobleAgent {
 
 function round6(n: number): number {
   return Math.round(n * 1e6) / 1e6;
+}
+
+/** Try the primary adapter; on a thrown complete(), retry once on the fallback.
+ * Streaming does not fall back mid-stream. Cost is accounted at the price of
+ * the adapter that actually answered. */
+function withFallback(primary: ModelAdapter, fallback: ModelAdapter): ModelAdapter {
+  const wrapped: ModelAdapter = {
+    id: primary.id,
+    price: primary.price,
+    async complete(req: ModelRequest): Promise<ModelResponse> {
+      try {
+        const res = await primary.complete(req);
+        wrapped.price = primary.price;
+        return res;
+      } catch (err) {
+        if (!quiet()) console.warn(`[noble] model "${primary.id}" failed (${String(err)}); falling back to "${fallback.id}".`);
+        wrapped.price = fallback.price;
+        return fallback.complete({ ...req, model: fallback.id });
+      }
+    },
+    stream(req: ModelRequest) {
+      return primary.stream(req);
+    },
+  };
+  return wrapped;
 }
 
 async function retry<T>(fn: () => Promise<T>, times: number): Promise<T> {

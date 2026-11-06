@@ -10,8 +10,11 @@ hero:
       text: Getting started
       link: /getting-started
     - theme: alt
-      text: GitHub
-      link: https://github.com/davolu/NobleAgent
+      text: Recipes
+      link: /recipes/support-bot
+    - theme: alt
+      text: API reference
+      link: /reference/entry-points
 
 features:
   - icon: ⛓️

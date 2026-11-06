@@ -88,5 +88,12 @@ bot.model(new MockModelAdapter([
 ]));
 ```
 
-Next: the [API tour](/api-tour) covers every chain method; the [safety model](/safety) explains
-approvals, the data channel and access control.
+## Where next
+
+- **[Recipes](/recipes/support-bot)** — complete builds: support bot with refunds, internal
+  docs Q&A with access levels, research assistant, cost control at scale, scheduled digest
+  workflows, MCP in both directions.
+- **[API reference](/reference/entry-points)** — every chain method with options and examples.
+- **[Safety model](/safety)** — approvals, the untrusted data channel, access control.
+- **[Strategies & costs](/strategies)** — what each RAG/prompting strategy costs and when it
+  earns its keep.

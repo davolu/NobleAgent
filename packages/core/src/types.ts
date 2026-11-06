@@ -279,6 +279,10 @@ export interface DocsOptions {
   web?: boolean;
   access?: Record<string, string[]>;
   embedder?: unknown;
+  /** Chunks injected per query (default 6). */
+  topK?: number;
+  /** Required when web: true — there is no default web search provider. */
+  webSearch?: (query: string) => Promise<{ title: string; url: string; text: string }[]>;
 }
 
 export type RagFactory = (pathOrStore: string | unknown, opts: DocsOptions, agentCfg: ResolvedConfig) => RagRunner;
